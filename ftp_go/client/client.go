@@ -587,13 +587,6 @@ func putFile(conn net.Conn, fileName []byte) {
 		}
 	}
 
-	// Error checking on server
-	n, err = conn.Read(ok[:])
-	if string(ok[:n]) != "OK" || err != nil {
-		fmt.Printf("Error creating file on server: %s\n", err)
-		return
-	}
-
 	// Open file to copy to server
 	file, err := os.Open(string(fileName[:]))
 	defer file.Close()
@@ -603,6 +596,22 @@ func putFile(conn net.Conn, fileName []byte) {
 		} else {
 			fmt.Printf("Error opening file %s on client\n", string(fileName[:]))
 		}
+		return
+	}
+
+	// Cancel operation if trying to copy a directory
+	f, _ := file.Stat()
+	if f.IsDir() {
+		fmt.Printf("Error: Cannot copy directory\n")
+		conn.Write([]byte("ER"))
+		return
+	}
+	conn.Write([]byte("OK"))
+
+	// Error checking on server
+	n, err = conn.Read(ok[:])
+	if string(ok[:n]) != "OK" || err != nil {
+		fmt.Printf("Error creating file on server: %s\n", err)
 		return
 	}
 

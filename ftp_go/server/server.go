@@ -117,7 +117,7 @@ func handleClient(conn net.Conn) {
 		} else if bytes.Compare(comm, []byte(get)) == 0 {
 			getFile(conn, &us)
 		} else if bytes.Compare(comm, []byte(put)) == 0 {
-			putFile(conn)
+			putFile(conn, &us)
 		} else if bytes.Compare(comm, []byte(del)) == 0 {
 			deleteFile(conn, &us)
 		} else if bytes.Compare(comm, []byte(info)) == 0 {
@@ -317,7 +317,7 @@ func makeDir(conn net.Conn, us *user.State) {
 }
 
 // Copy file to server
-func putFile(conn net.Conn) {
+func putFile(conn net.Conn, us *user.State) {
 	// Name of file to copy
 	var name [256]byte
 	n, err := conn.Read(name[:])
@@ -328,15 +328,21 @@ func putFile(conn net.Conn) {
 	conn.Write([]byte("OK"))
 
 	// Check if a file with given name exists on the server so it doesn't overwrite that file
-	_, err = os.Stat(string(name[:n]))
+	_, err = os.Stat(filepath.Join(us.CurrentDir(), string(name[:n])))
 	if err == nil {
 		conn.Write([]byte("ER"))
 		return
 	}
 	conn.Write([]byte("OK"))
 
+	var ok [2]byte
+	n, err = conn.Read(ok[:])
+	if string(ok[:n]) != "OK" || err != nil {
+		return
+	}
+
 	// Create the file on the server
-	file, err := os.Create(string(name[:n]))
+	file, err := os.Create(filepath.Join(us.CurrentDir(), string(name[:n])))
 	defer file.Close()
 	if err != nil {
 		conn.Write([]byte("ER"))
@@ -352,7 +358,6 @@ func putFile(conn net.Conn) {
 	// 		ex: writing to much to the file, getting stuck in the loop
 	var buf [BUFSIZE]byte
 	var toRead [4]byte
-	var ok [2]byte
 	for {
 		n, err = conn.Read(ok[:])
 		// Break if there is an error on client otherwise continue reading into buf
@@ -361,7 +366,7 @@ func putFile(conn net.Conn) {
 		} else if string(ok[:n]) == "FE" {
 			break
 		} else if string(ok[:n]) == "OK" {
-			// Get how many bytes are being read going to be read
+			// Get how many bytes are going to be read
 			n, err = conn.Read(toRead[:])
 			if err != nil {
 				fmt.Printf("Error copying file to server %s\n", err)
