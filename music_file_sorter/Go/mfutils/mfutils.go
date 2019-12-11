@@ -24,18 +24,18 @@ func GetFiles(root string) ([]string, error) {
 	return files, err
 }
 
-//CreateDestination creates the destination folder using
-// the artist, album, and contributing artist; if the folder
-// doesn't already exist. It replaces characters that cannot but
+//CreateDestination creates the destination path using
+// the artist, album, and contributing artist;
+// It replaces characters that cannot but
 // used in a filepath on windows with a '_'
 func CreateDestination(art, alb, conArt string) string {
 	var destPath bytes.Buffer
-	re := regexp.MustCompile("[\\/:*?\"<>|]")
+	re, _ := regexp.Compile(`[\\\/:*?\"<>|]`)
 	if art != "" && alb != "" {
 		destPath.WriteString(re.ReplaceAllLiteralString(art, "_"))
 		destPath.WriteString("\\")
 		destPath.WriteString(re.ReplaceAllLiteralString(alb, "_"))
-	} else if conArt != "" && alb != "" {
+	} else if alb != "" && conArt != "" {
 		destPath.WriteString(re.ReplaceAllLiteralString(conArt, "_"))
 		destPath.WriteString("\\")
 		destPath.WriteString(re.ReplaceAllLiteralString(alb, "_"))
@@ -44,7 +44,7 @@ func CreateDestination(art, alb, conArt string) string {
 	} else if conArt != "" {
 		destPath.WriteString(re.ReplaceAllLiteralString(conArt, "_"))
 	} else {
-		destPath.WriteString("NO_TAGS_FOLDER")
+		destPath.WriteString("NO_TAGS")
 	}
 	return destPath.String()
 }
