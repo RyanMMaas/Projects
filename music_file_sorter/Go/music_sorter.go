@@ -6,9 +6,9 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/RyanMMaas/projects/music_file_sorter/Go/m4a"
-	"github.com/RyanMMaas/projects/music_file_sorter/Go/mfutils"
-	"github.com/RyanMMaas/projects/music_file_sorter/Go/mp3"
+	"github.com/RyanMMaas/Projects/music_file_sorter/Go/m4a"
+	"github.com/RyanMMaas/Projects/music_file_sorter/Go/mfutils"
+	"github.com/RyanMMaas/Projects/music_file_sorter/Go/mp3"
 )
 
 func main() {
@@ -58,6 +58,6 @@ func main() {
 		dp := mfutils.CreateDestination(art, alb, cArt)
 
 		moveDest = filepath.Join(dest, dp)
-		mfutils.MoveFile(path, moveDest)
+		_ = mfutils.MoveFile(path, moveDest)
 	}
 }

@@ -5,7 +5,7 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/RyanMMaas/projects/music_file_sorter/Go/mfutils"
+	"github.com/RyanMMaas/Projects/music_file_sorter/Go/mfutils"
 )
 
 type M4afile struct {

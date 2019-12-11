@@ -2,11 +2,11 @@ package mfutils
 
 import (
 	"bytes"
+	"fmt"
 	"io"
 	"os"
 	"path/filepath"
 	"regexp"
-	"strings"
 )
 
 // GetFiles returns a slice of mp3 and m4a files in
@@ -66,21 +66,23 @@ func MoveFile(srcPath, dstPath string) error {
 	if err != nil {
 		return err
 	}
+	defer inputFile.Close()
 
-	s := strings.Split(srcPath, "\\")
-	outputFile, err := os.Create(dstPath + "\\" + s[len(s)-1])
+	if _, err := os.Stat(filepath.Join(dstPath, filepath.Base(srcPath))); !os.IsNotExist(err) {
+		return fmt.Errorf("%s already exists", filepath.Join(dstPath, filepath.Base(srcPath)))
+	}
+	outputFile, err := os.Create(filepath.Join(dstPath, filepath.Base(srcPath)))
 	if err != nil {
-		inputFile.Close()
 		return err
 	}
-
 	defer outputFile.Close()
+
 	_, err = io.Copy(outputFile, inputFile)
-	inputFile.Close()
 	if err != nil {
 		return err
 	}
 
+	inputFile.Close()
 	err = os.Remove(srcPath)
 	if err != nil {
 		return err

@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/RyanMMaas/projects/music_file_sorter/Go/mfutils"
+	"github.com/RyanMMaas/Projects/music_file_sorter/Go/mfutils"
 )
 
 //Mp3File holds the data of the mp3 file
