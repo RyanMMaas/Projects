@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/RyanMMaas/Projects/music_file_sorter/Go/mfutils"
+	"github.com/RyanMMaas/Projects/music_file_sorter/Go/mfutil"
 )
 
 //Mp3File holds the data of the mp3 file
@@ -99,13 +99,13 @@ func GetTags(file *os.File) (album, artist, contArtist string, e error) {
 			break
 		}
 		if string(framename) == "TALB" {
-			m.album = mfutils.ParseTextField(buf, (pos + id3FrameSize), framesize)
+			m.album = mfutil.ParseTextField(buf, (pos + id3FrameSize), framesize)
 		}
 		if string(framename) == "TPE2" {
-			m.artist = mfutils.ParseTextField(buf, (pos + id3FrameSize), framesize)
+			m.artist = mfutil.ParseTextField(buf, (pos + id3FrameSize), framesize)
 		}
 		if string(framename) == "TPE1" {
-			m.contrArtist = mfutils.ParseTextField(buf, (pos + id3FrameSize), framesize)
+			m.contrArtist = mfutil.ParseTextField(buf, (pos + id3FrameSize), framesize)
 		}
 		pos += int(framesize) + id3FrameSize
 		continue

@@ -1,4 +1,4 @@
-package mfutils
+package mfutil
 
 import (
 	"bufio"

@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 
 	"github.com/RyanMMaas/Projects/music_file_sorter/Go/m4a"
-	"github.com/RyanMMaas/Projects/music_file_sorter/Go/mfutils"
+	"github.com/RyanMMaas/Projects/music_file_sorter/Go/mfutil"
 	"github.com/RyanMMaas/Projects/music_file_sorter/Go/mp3"
 )
 
@@ -25,7 +25,7 @@ func main() {
 		}
 	}
 
-	files, err := mfutils.GetFiles(root)
+	files, err := mfutil.GetFiles(root)
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -55,9 +55,9 @@ func main() {
 			break
 		}
 
-		dp := mfutils.CreateDestination(art, alb, cArt)
+		dp := mfutil.CreateDestination(art, alb, cArt)
 
 		moveDest = filepath.Join(dest, dp)
-		_ = mfutils.MoveFile(path, moveDest)
+		_ = mfutil.MoveFile(path, moveDest)
 	}
 }
