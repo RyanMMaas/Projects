@@ -1,0 +1,36 @@
+{{template "header"}}
+
+<div id="search-bar">
+    <form id="search-form" action="/post" method="POST">
+        <input name="job-title" type="text" placeholder="Job Title/Keyword">
+        <input name="location" type="text" placeholder="Location (City, State)">
+        <input name="age" type="text" placeholder="Age (0 for all)">
+        <section>
+            <label>
+                <input type="checkbox" name="glassdoor" value="Glassdoor">Glassdoor
+            </label>
+            <label>
+                <input type="checkbox" name="indeed" value="Indeed">Indeed
+            </label>
+        </section>
+        <button id="submit" value="Search" type="submit">Search</button>
+    </form>
+    <div id="filter-bar">
+        <input id="filter-kw" name="filter-kw" type="text" placeholder="junior, senior, etc.">
+    </div>
+    <span id="res-info">
+        <b>Applied:</b><p id="res-info-1"></p><br>
+        <b>Not Interested:</b><p id="res-info-3"></p><br>
+        <b>Other:</b><p id="res-info-2"></p><br>
+        <div>
+            <label>
+                <input type="checkbox" id="hide-no-interest" name="hide-no-interest" value="hide">Hide Not Interested
+            </label>
+        </div>
+    </span>
+</div>
+</div>
+<div id="results">
+
+</div>
+{{template "footer"}}

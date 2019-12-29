@@ -1,0 +1,141 @@
+html {
+    --mywhite: #ffffff;
+    --myblack: #333333;
+    --mygrey: #cccccc;
+    --mylightblue: #bbdce8;
+    --myblue: #9eb9c3;
+    --mygreen: #a1c22d;
+    --myred: #c02942;
+    font-family: "Lato", sans-serif;
+    font-size: 14px;
+}
+body {
+    margin: 0px;
+    margin-bottom: 15px;
+    background-color: var(--mygrey);
+}
+
+#search-bar {
+    position: relative;
+
+    top: 0px;
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-style: groove;
+    background-color: var(--myblue);
+}
+#search-bar input,
+#search-bar button {
+    padding: 3px;
+    margin-left: 3px;
+    margin-right: 5px;
+    font-family: inherit;
+}
+#search-bar section {
+    padding: 5px;
+    padding-right: 10px;
+    display: inline;
+    background-color: var(--mylightblue);
+}
+#filter-bar {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+#res-info {
+    text-align: left;
+    position: absolute;
+    right: 75px;
+    top: 15px;
+    background-color: var(--mywhite);
+    padding: 15px;
+    padding-left: 10px;
+    padding-right: 50px;
+    border-radius: 15px;
+}
+#res-info p {
+    display: inline;
+    padding: 5px;
+    text-align: right;
+}
+#res-info div {
+    padding-top: 15px;
+}
+.checkbox-hide {
+    display: none;
+}
+
+.job-box {
+    margin: auto 100px;
+    border-style: groove;
+    overflow: hidden;    
+    border-radius: 15px;
+}
+.info-box {
+    position: relative;
+    background-color: var(--myblue);
+    color: var(--myblack);
+    padding: 15px;
+    text-shadow: 1px 1px 3px var(--mywhite), 
+    -1px 1px 3px var(--mywhite),
+    1px -1px 3px var(--mywhite),
+    -1px -1px 3px var(--mywhite);
+    user-select: none;
+}
+.company {
+    text-align: left;
+    padding-left: 5px;
+    margin-bottom: 10px;
+    font-style: italic;
+}
+.title {
+    display: inline-block;
+    text-align: left;
+    padding-left: 25px;
+    margin-top: 0px;
+    text-decoration: underline;
+}
+.date {
+    display: inline-block;
+    float:right;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.status {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    width: 50px;
+}
+.stat-span {
+    position: absolute;
+    right: 15px;
+    top: 5px;
+    width: 50px;
+    padding: 30px;
+}
+
+.description {
+    background-color: var(--mywhite);
+    padding: 10px;
+    padding-bottom: 15px;
+    display: none;
+}
+.description div:first-child {
+    padding: 15px;
+    padding-bottom: 20px;
+}
+.apply {
+    background-color: var(--myblue);
+    color: var(--mywhite);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2em;
+    padding: 10px;
+    margin-bottom: 10px;
+    text-shadow: 0px 0px 5px var(--myblack);
+}
+.apply:hover {
+    background-color: var(--mylightblue);
+}
